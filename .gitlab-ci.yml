@@ -1,0 +1,23 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+before_script:
+  - docker info
+
+build:
+  stage: build
+  
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  
+  script:
+    - echo 'Build and check docker image'
+    - docker login -u $CI_USER -p $CI_API_TOKEN $CI_REGISTRY
+    - docker build -t $IMAGE_TAG .
+    - echo 'Verify program(s) used by this repo'
+    - docker run -t $IMAGE_TAG fastqc --help
+    - docker run -t $IMAGE_TAG multiqc --help
+    - docker push $IMAGE_TAG
+
