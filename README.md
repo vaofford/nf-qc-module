@@ -1,4 +1,4 @@
-# WSI Team 113 Nexflow QC module (t113-nf-qc)
+# WSI Team 113 Nexflow QC module 
 
 Quality control (QC) module for use in Nextflow pipelines.
 
